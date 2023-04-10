@@ -14,7 +14,7 @@ I'm using Jamis Buck's 'The Ray Tracer Challenge' as my guide for this.
 The book contains no code at all - just tests that you have to pass, so it's language agnostic. 
 It's pretty fun!
 
-I've chosen TypeScript here just because I wanted something that is able to run in the browser. It will also save me having to write my own client to actually visualise
+I've chosen TypeScript here just because I wanted something that is able to run in the browser. It will also save me having to write my own client to actually visualise anything I generate.
 
 ## Why?
 
