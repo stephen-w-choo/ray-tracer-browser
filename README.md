@@ -20,14 +20,14 @@ I've chosen TypeScript here just because I wanted something that is able to run 
 
 Well...
 
-Hasn't this already been done? 🤡 Yes, by Three.js.
+* Hasn't this already been done? 🤡 Yes, by Three.js.
 
-Isn't this going to be slower, less optimised, less featureful, and overall worse than Three.js in every way? 🤡 Yes.
+* Isn't this going to be slower, less optimised, less featureful, and overall worse than Three.js in every way? 🤡 Yes.
 
-Am I having more fun with programming than I've had in a long time? 💪 Yes, I am.
+* Am I having more fun with programming than I've had in a long time? 💪 Yes, I am.
 
 ## Regrets/issues I've run into so far
 
-### The lack of operator overloading in TypeScript really, really hurts. Using class methods for matrix operations is ugly, to say the least.
+* The lack of operator overloading in TypeScript really, really hurts. Using class methods for matrix operations is ugly, to say the least.
 
-### Matrix multiplication in TS/JS is... slow, to say the least. Unsure if there are any libraries I can import that will speed things up.
+* Matrix multiplication in TS/JS is... slow, to say the least. Unsure if there are any libraries I can import that will speed things up.
