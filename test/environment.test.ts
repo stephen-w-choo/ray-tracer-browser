@@ -1,5 +1,5 @@
-import {Projectile, Environment, tick} from '../environment/environment'
-import {createPoint, createVector} from '../types/Tuple'
+import {Projectile, Environment, tick} from '../src/environment/environment'
+import {createPoint, createVector} from '../src/types/Tuple'
 
 describe('Environment where projectile starts 1 unit above origin', () => {
   const env: Environment = {

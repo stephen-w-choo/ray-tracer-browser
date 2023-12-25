@@ -1,4 +1,4 @@
-import { Color, createColor } from '../types/Color'
+import { Color, createColor } from '../src/types/Color'
 
 describe('Color', () => {
   test('Multiplying a color by a scalar', () => {
