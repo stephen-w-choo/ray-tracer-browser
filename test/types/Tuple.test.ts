@@ -1,4 +1,4 @@
-import {createTuple, createPoint, createVector, FloatEquals } from "../src/types/Tuple"
+import {createTuple, createPoint, createVector, FloatEquals } from "../../src/types/Tuple"
 import {describe, expect, test} from '@jest/globals'
 
 describe('testing classes', ()=> {
