@@ -27,8 +27,8 @@ class Tuple {
     return FloatEquals(this.x, other.x) && FloatEquals(this.y, other.y) && FloatEquals(this.z, other.z) && FloatEquals(this.w, other.w)
   }
 
-
-  public plus(other: Tuple) {
+  
+  plus(other: Tuple) {
     return new Tuple(this.x + other.x, this.y + other.y, this.z + other.z, this.w + other.w)
   }
 
