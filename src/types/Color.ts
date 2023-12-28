@@ -12,14 +12,12 @@ class Color {
 	r: number
 	g: number
 	b: number
-	
-	
+
 	constructor(r: number, g: number, b: number) {
 		this.r = r
 		this.g = g
 		this.b = b
 	}
-
 
 	equals(other: Color) {
 		return (
@@ -30,19 +28,11 @@ class Color {
 	}
 
 	plus(other: Color) {
-		return new Color(
-			this.r + other.r,
-			this.g + other.g,
-			this.b + other.b
-		)
+		return new Color(this.r + other.r, this.g + other.g, this.b + other.b)
 	}
 
 	minus(other: Color) {
-		return new Color(
-			this.r - other.r,
-			this.g - other.g,
-			this.b - other.b,
-		)
+		return new Color(this.r - other.r, this.g - other.g, this.b - other.b)
 	}
 
 	times(scalar: number | Color) {

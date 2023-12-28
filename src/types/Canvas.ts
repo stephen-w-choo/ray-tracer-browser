@@ -30,6 +30,9 @@ export class Canvas {
 			},
 			set: (y: number, x: number, color: Color) => {
 				if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+                    y = Math.round(y)
+                    x = Math.round(x)
+
 					this.canvasArray[y][x] = color
 				} else {
 					throw new Error("Pixel coordinates are out of bounds")
