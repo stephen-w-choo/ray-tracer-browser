@@ -23,6 +23,38 @@ class Matrix {
 		)
 	}
 
+    static translation(x: number, y: number, z: number): Matrix {
+        let result = Matrix.identity(4)
+        // adding the translation values to the last column
+        // last column ensures that having a w value of 0 will negate the translation
+        result.mat[0][3] = x
+        result.mat[1][3] = y
+        result.mat[2][3] = z
+        
+        return result
+    }
+
+    static scaling(x: number, y: number, z: number): Matrix {
+        let result = Matrix.identity(4)
+        result.mat[0][0] = x
+        result.mat[1][1] = y
+        result.mat[2][2] = z
+        
+        return result
+    }
+
+    static rotateX(radians: number): Matrix {
+        let result = Matrix.identity(4)
+        result.mat[1][1] = Math.cos(radians)
+        result.mat[1][2] = -Math.sin(radians)
+        result.mat[2][1] = Math.sin(radians)
+        result.mat[2][2] = Math.cos(radians)
+
+        return result
+    }
+
+
+
 	get(row: number, col: number): number {
 		if (row >= 0 && row < this.n && col >= 0 && col < this.m) {
 			return this.mat[row][col]
@@ -167,6 +199,12 @@ class Matrix {
 
         return new Matrix(result)
     }
+
+    // TODO: Mutable methods for fluent API? 
+    // translate(x: number, y: number, z: number) {
+    //     let translation = Matrix.translation(x, y, z)
+    //     this.mat = this.timesMatrix(translation)
+    // }
 }
 
 export { Matrix }

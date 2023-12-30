@@ -361,3 +361,76 @@ describe("Matrix type test", () => {
         expect(matrix1.times(matrix2).times(matrix2.invert()).equals(matrix1)).toBe(true)
     })
 })
+
+describe("Matrix transformations tests", () => {
+    test("Multiplying by a translation matrix", () => {
+        // Given
+        const transform = Matrix.translation(5, -3, 2)
+        const p = new Tuple(-3, 4, 5, 1)
+
+        // Then
+        const expectedTuple = new Tuple(2, 1, 7, 1)
+        expect(transform.times(p).equals(expectedTuple)).toBe(true)
+    })
+
+    test("Multiplying by the inverse of a translation matrix", () => {
+        // Given
+        const transform = Matrix.translation(5, -3, 2)
+        const inv = transform.invert()
+        const p = new Tuple(-3, 4, 5, 1)
+
+        // Then
+        const expectedTuple = new Tuple(-8, 7, 3, 1)
+        expect(inv.times(p).equals(expectedTuple)).toBe(true)
+    })
+
+    test("Translation does not affect vectors", () => {
+        // Given
+        const transform = Matrix.translation(5, -3, 2)
+        const v = new Tuple(-3, 4, 5, 0)
+
+        // Then
+        expect(transform.times(v).equals(v)).toBe(true)
+    })
+
+    test("A scaling matrix applied to a point", () => {
+        // Given
+        const transform = Matrix.scaling(2, 3, 4)
+        const p = new Tuple(-4, 6, 8, 1)
+
+        // Then
+        const expectedTuple = new Tuple(-8, 18, 32, 1)
+        expect(transform.times(p).equals(expectedTuple)).toBe(true)
+    })
+
+    test("A scaling matrix applied to a vector", () => {
+        // Given
+        const transform = Matrix.scaling(2, 3, 4)
+        const v = new Tuple(-4, 6, 8, 0)
+
+        // Then
+        const expectedTuple = new Tuple(-8, 18, 32, 0)
+        expect(transform.times(v).equals(expectedTuple)).toBe(true)
+    })
+
+    test("Multiplying by the inverse of a scaling matrix should shrink tuple", () => {
+        // Given
+        const transform = Matrix.scaling(2, 3, 4)
+        const shrinkingMatrix = transform.invert()
+        const v = new Tuple(-4, 6, 8, 0)
+
+        // Then
+        const expectedTuple = new Tuple(-2, 2, 2, 0)
+        expect(shrinkingMatrix.times(v).equals(expectedTuple)).toBe(true)
+    })
+
+    test("Scaling with a negative value results in tuple being reflected", () => {
+        // Given
+        const transform = Matrix.scaling(-1, 1, 1)
+        const p = new Tuple(2, 3, 4, 1)
+
+        // Then
+        const expectedTuple = new Tuple(-2, 3, 4, 1)
+        expect(transform.times(p).equals(expectedTuple)).toBe(true)
+    })
+})
