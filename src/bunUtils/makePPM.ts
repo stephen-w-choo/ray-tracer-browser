@@ -17,7 +17,7 @@ async function makePPM(canvas: Canvas, outputFileName: string) {
 	fileLines.push(PPM_MAX.toString())
 
 	let line = []
-    // the below can probably be turned into a reduce but I don't have the brains right now
+	// the below can probably be turned into a reduce but I don't have the brains right now
 	for (let y = 0; y < canvas.height; y++) {
 		for (let x = 0; x < canvas.width; x++) {
 			let color = canvas.pixel.get(y, x)

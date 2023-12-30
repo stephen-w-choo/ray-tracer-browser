@@ -4,12 +4,13 @@ import { createColor } from "../../src/types/Color"
 import fs from "fs"
 
 // Set up File IO mocks
-jest.mock('fs', () => ({
-    writeFileSync: jest.fn(),
-}));
-  
-const writeFileSyncMock = 
-    fs.writeFileSync as jest.MockedFunction<typeof fs.writeFileSync>;
+jest.mock("fs", () => ({
+	writeFileSync: jest.fn(),
+}))
+
+const writeFileSyncMock = fs.writeFileSync as jest.MockedFunction<
+	typeof fs.writeFileSync
+>
 
 // Tests
 describe("Making a PPM file", () => {
@@ -39,30 +40,30 @@ describe("Making a PPM file", () => {
 			1,
 			"test.ppm",
 			expectedPPMFile
-            )
+		)
 	})
 
-    test("Longer lines should be split before the 70 character limit", () => {
-        // Given
-        const testCanvas = new Canvas(2, 10)
-        const c = createColor(1, 0.8, 0.6)
-        fs.writeFileSync
+	test("Longer lines should be split before the 70 character limit", () => {
+		// Given
+		const testCanvas = new Canvas(2, 10)
+		const c = createColor(1, 0.8, 0.6)
+		fs.writeFileSync
 
-        // When
-        for (let y = 0; y < testCanvas.height; y++) {
-            for (let x = 0; x < testCanvas.width; x++) {
-                testCanvas.pixel.set(y, x, c)
-            }
-        }
+		// When
+		for (let y = 0; y < testCanvas.height; y++) {
+			for (let x = 0; x < testCanvas.width; x++) {
+				testCanvas.pixel.set(y, x, c)
+			}
+		}
 
-        // Then
-        makePPM(testCanvas, "test.ppm")
+		// Then
+		makePPM(testCanvas, "test.ppm")
 
-        const [_, fileData] = writeFileSyncMock.mock.calls[1]
-        const lines = (fileData as string).split("\n")
+		const [_, fileData] = writeFileSyncMock.mock.calls[1]
+		const lines = (fileData as string).split("\n")
 
-        lines.forEach((line) => {
-            expect(line.length).toBeLessThanOrEqual(70)
-        })
-    })
+		lines.forEach(line => {
+			expect(line.length).toBeLessThanOrEqual(70)
+		})
+	})
 })
