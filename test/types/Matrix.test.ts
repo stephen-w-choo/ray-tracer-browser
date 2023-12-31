@@ -1,5 +1,5 @@
 import { Matrix } from "../../src/types/Matrix"
-import { Tuple } from "../../src/types/Tuple"
+import { Tuple, createPoint } from "../../src/types/Tuple"
 
 describe("Matrix type test", () => {
 	test("2x2 matrix should be represented properly", () => {
@@ -432,5 +432,116 @@ describe("Matrix transformations tests", () => {
         // Then
         const expectedTuple = new Tuple(-2, 3, 4, 1)
         expect(transform.times(p).equals(expectedTuple)).toBe(true)
+    })
+
+    test("Rotating a point around the x-axis", () => {
+        // Given
+        const p = new Tuple(0, 1, 0, 1)
+        const halfQuarter = Matrix.identity().rotateX(Math.PI / 4)
+        const fullQuarter = Matrix.identity().rotateX(Math.PI / 2)
+    
+        // Then
+        expect(halfQuarter.times(p).equals(new Tuple(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2, 1))).toBe(true)
+        expect(fullQuarter.times(p).equals(new Tuple(0, 0, 1, 1))).toBe(true)
+    })
+
+    test("Rotating a point around the y-axis", () => {
+        // Given
+        const p = createPoint(0, 0, 1)
+        const halfQuarter = Matrix.identity().rotateY(Math.PI / 4)
+        const fullQuarter = Matrix.identity().rotateY(Math.PI / 2)
+        
+        // Then
+        expect(halfQuarter.times(p).equals(createPoint(Math.sqrt(2) / 2, 0, Math.sqrt(2) / 2))).toBe(true)
+        expect(fullQuarter.times(p).equals(createPoint(1, 0, 0))).toBe(true)
+    })
+
+    test("Rotating a point around the z-axis", () => {
+        // Given
+        const p = createPoint(0, 1, 0)
+        const halfQuarter = Matrix.identity().rotateZ(Math.PI / 4)
+        const fullQuarter = Matrix.identity().rotateZ(Math.PI / 2)
+        
+        // Then
+        expect(halfQuarter.times(p).equals(createPoint(-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0))).toBe(true)
+        expect(fullQuarter.times(p).equals(createPoint(-1, 0, 0))).toBe(true)
+    })
+
+    test("A shearing transformation moves x in proportion to y", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(1, 0, 0, 0, 0, 0)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(5, 3, 4))).toBe(true)
+    })
+
+    test("A shearing transformation moves x in proportion to z", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(0, 1, 0, 0, 0, 0)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(6, 3, 4))).toBe(true)
+    })
+
+    test("A shearing transformation moves y in proportion to x", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(0, 0, 1, 0, 0, 0)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(2, 5, 4))).toBe(true)
+    })
+
+    test("A shearing transformation moves y in proportion to z", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(0, 0, 0, 1, 0, 0)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(2, 7, 4))).toBe(true)
+    })
+
+    test("A shearing transformation moves z in proportion to x", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(0, 0, 0, 0, 1, 0)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(2, 3, 6))).toBe(true)
+    })
+
+    test("A shearing transformation moves z in proportion to y", () => {
+        // Given
+        const p = createPoint(2, 3, 4)
+        const transform = Matrix.identity().shearing(0, 0, 0, 0, 0, 1)
+
+        // Then
+        expect(transform.times(p).equals(createPoint(2, 3, 7))).toBe(true)
+    })
+
+    test("Chaining transformations produces the same result as performing them in sequence", () => {
+        // Given
+        const p = createPoint(1, 0, 1)
+        const A = Matrix.identity().rotateX(Math.PI / 2)
+        const B = Matrix.identity().scale(5, 5, 5)
+        const C = Matrix.identity().translate(10, 5, 7)
+        const chained = Matrix.identity()
+                            .rotateX(Math.PI / 2)
+                            .scale(5, 5, 5)
+                            .translate(10, 5, 7)
+
+        // When
+        const p2 = A.times(p)
+        const p3 = B.times(p2)
+        const p4 = C.times(p3)
+        const chainedP = chained.times(p)
+
+        // Then
+        expect(p2.equals(createPoint(1, -1, 0))).toBe(true)
+        expect(p3.equals(createPoint(5, -5, 0))).toBe(true)
+        expect(p4.equals(createPoint(15, 0, 7))).toBe(true)
+        expect(p4.equals(chainedP)).toBe(true)
     })
 })

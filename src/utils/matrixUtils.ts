@@ -62,7 +62,32 @@ function rotationXMatrix(radians: number): number[][] {
     ]
 }
 
-// function rotationY
+function rotationYMatrix(radians: number): number[][] {
+    return [
+        [Math.cos(radians), 0, Math.sin(radians), 0],
+        [0, 1, 0, 0], 
+        [-Math.sin(radians), 0, Math.cos(radians), 0],
+        [0, 0, 0, 1],
+    ]
+}
+
+function rotationZMatrix(radians: number): number[][] {
+    return [
+        [Math.cos(radians), -Math.sin(radians), 0, 0],
+        [Math.sin(radians), Math.cos(radians), 0, 0], 
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+    ]
+}
+
+function shear(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): number[][] {
+    return [
+        [1, xy, xz, 0],
+        [yx, 1, yz, 0],
+        [zx, zy, 1, 0],
+        [0, 0, 0, 1]
+    ]
+}
 
 function FloatEquals(a: number, b: number) {
 	return Math.abs(a - b) < EPSILON
@@ -72,8 +97,11 @@ export {
     FloatEquals, 
     identity, 
     matrixMultiply, 
-    scalingMatrix,
     rotationXMatrix,
+    rotationYMatrix,
+    rotationZMatrix,
+    scalingMatrix,
+    shear,
     translationMatrix, 
 }
 

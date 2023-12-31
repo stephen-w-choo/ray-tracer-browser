@@ -1,4 +1,4 @@
-import { FloatEquals, identity, matrixMultiply, rotationXMatrix, scalingMatrix, translationMatrix } from "../utils/matrixUtils"
+import { FloatEquals, identity, matrixMultiply, rotationXMatrix, rotationYMatrix, rotationZMatrix, scalingMatrix, shear, translationMatrix } from "../utils/matrixUtils"
 import { Tuple } from "./Tuple"
 
 class Matrix {
@@ -177,6 +177,33 @@ class Matrix {
         return new Matrix(
             matrixMultiply(
                 rotationXMatrix(radians),
+                this.mat
+            )
+        )
+    }
+
+    rotateY(radians: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                rotationYMatrix(radians),
+                this.mat
+            )
+        )
+    }
+
+    rotateZ(radians: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                rotationZMatrix(radians),
+                this.mat
+            )
+        )
+    }
+
+    shearing(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                shear(xy, xz, yx, yz, zx, zy),
                 this.mat
             )
         )

@@ -131,11 +131,11 @@ function createTuple(x: number, y: number, z: number, w: number) {
 }
 
 function createPoint(x: number, y: number, z: number) {
-	return new Point(x, y, z)
+	return new Tuple(x, y, z, 1)
 }
 
 function createVector(x: number, y: number, z: number) {
-	return new Vector(x, y, z)
+	return new Tuple(x, y, z, 0)
 }
 
 export {
