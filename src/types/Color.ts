@@ -1,4 +1,5 @@
-import { FloatEquals, Tuple } from "./Tuple"
+import { Tuple } from "./Tuple"
+import { FloatEquals } from "../utils/matrixUtils"
 
 class Color {
 	// note - I'm not especially happy with this implementation

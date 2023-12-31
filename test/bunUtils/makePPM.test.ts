@@ -1,4 +1,4 @@
-import { makePPM } from "../../src/bunUtils/makePPM"
+import { makePPM } from "../../src/utils/bunUtils/makePPM"
 import { Canvas } from "../../src/types/Canvas"
 import { createColor } from "../../src/types/Color"
 import fs from "fs"

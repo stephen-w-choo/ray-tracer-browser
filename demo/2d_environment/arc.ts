@@ -6,7 +6,7 @@ import {
 } from "../../src/environment/environment"
 import { Canvas } from "../../src/types/Canvas"
 import { Color } from "../../src/types/Color"
-import { makePPM } from "../../src/bunUtils/makePPM"
+import { makePPM } from "../../src/utils/bunUtils/makePPM"
 
 const start = createPoint(0, 1, 0)
 const velocity = createVector(1, 1.8, 0).normalize().times(11.25)

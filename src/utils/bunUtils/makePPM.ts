@@ -1,4 +1,4 @@
-import { Canvas } from "../types/Canvas"
+import { Canvas } from "../../types/Canvas"
 import fs from "fs"
 
 const HEADER = "P3"

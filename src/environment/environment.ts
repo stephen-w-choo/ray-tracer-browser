@@ -1,4 +1,5 @@
-import { Tuple, Point, Vector, FloatEquals } from "../types/Tuple"
+import { Tuple, Point, Vector } from "../types/Tuple"
+import { FloatEquals } from "../utils/matrixUtils"
 
 // Projectile type that is composed of an instance of a Tuple and a Vector
 interface Projectile {

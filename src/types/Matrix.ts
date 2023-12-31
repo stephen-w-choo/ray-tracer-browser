@@ -1,4 +1,5 @@
-import { FloatEquals, Tuple } from "./Tuple"
+import { FloatEquals, identity, matrixMultiply, rotationXMatrix, scalingMatrix, translationMatrix } from "../utils/matrixUtils"
+import { Tuple } from "./Tuple"
 
 class Matrix {
 	mat: number[][]
@@ -11,49 +12,21 @@ class Matrix {
 		this.n = nums[0].length
 	}
 
-	static identity(n: number): Matrix {
-		return new Matrix(
-			Array(n)
-				.fill(0)
-				.map((_, index) => {
-					const rowArray = Array(n).fill(0)
-					rowArray[index] = 1
-					return rowArray
-				})
-		)
+	static identity(n: number | undefined = undefined): Matrix {
+        if (typeof n !== "number") {
+            return new Matrix(identity())
+        } else {
+            return new Matrix(
+                Array(n)
+                    .fill(0)
+                    .map((_, index) => {
+                        const rowArray = Array(n).fill(0)
+                        rowArray[index] = 1
+                        return rowArray
+                    })
+            )
+        }
 	}
-
-    static translation(x: number, y: number, z: number): Matrix {
-        let result = Matrix.identity(4)
-        // adding the translation values to the last column
-        // last column ensures that having a w value of 0 will negate the translation
-        result.mat[0][3] = x
-        result.mat[1][3] = y
-        result.mat[2][3] = z
-        
-        return result
-    }
-
-    static scaling(x: number, y: number, z: number): Matrix {
-        let result = Matrix.identity(4)
-        result.mat[0][0] = x
-        result.mat[1][1] = y
-        result.mat[2][2] = z
-        
-        return result
-    }
-
-    static rotateX(radians: number): Matrix {
-        let result = Matrix.identity(4)
-        result.mat[1][1] = Math.cos(radians)
-        result.mat[1][2] = -Math.sin(radians)
-        result.mat[2][1] = Math.sin(radians)
-        result.mat[2][2] = Math.cos(radians)
-
-        return result
-    }
-
-
 
 	get(row: number, col: number): number {
 		if (row >= 0 && row < this.n && col >= 0 && col < this.m) {
@@ -70,25 +43,6 @@ class Matrix {
 			}
 		}
 		return true
-	}
-
-	private timesMatrix(other: Matrix) {
-		let result: number[][] = Array(this.m)
-			.fill(0)
-			.map(() => Array(this.n).fill(0))
-
-		if (this.n !== other.m) {
-			throw new Error("Matrices are not compatible for multiplication")
-		}
-
-		for (let i = 0; i < this.m; i++) {
-			for (let j = 0; j < this.n; j++) {
-				for (let k = 0; k < this.n; k++) {
-					result[i][j] += this.mat[i][k] * other.mat[k][j]
-				}
-			}
-		}
-		return result
 	}
 
 	private timesTuple(other: Tuple): [number, number, number, number] {
@@ -115,7 +69,7 @@ class Matrix {
 	times(other: Tuple): Tuple
 	times(other: Matrix | Tuple) {
 		if (other instanceof Matrix) {
-			return new Matrix(this.timesMatrix(other))
+			return new Matrix(matrixMultiply(this.mat, other.mat))
 		}
 		if (other instanceof Tuple) {
 			return new Tuple(...this.timesTuple(other))
@@ -200,11 +154,33 @@ class Matrix {
         return new Matrix(result)
     }
 
-    // TODO: Mutable methods for fluent API? 
-    // translate(x: number, y: number, z: number) {
-    //     let translation = Matrix.translation(x, y, z)
-    //     this.mat = this.timesMatrix(translation)
-    // }
+    // matrix transformation functions for fluent API
+    translate(x: number, y: number, z: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                translationMatrix(x, y, z),
+                this.mat
+            )
+        )
+    }
+
+    scale(x: number, y: number, z: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                scalingMatrix(x, y, z),
+                this.mat
+            )
+        )
+    }
+
+    rotateX(radians: number): Matrix {
+        return new Matrix(
+            matrixMultiply(
+                rotationXMatrix(radians),
+                this.mat
+            )
+        )
+    }
 }
 
 export { Matrix }

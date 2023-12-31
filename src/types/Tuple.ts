@@ -1,4 +1,4 @@
-const EPSILON = 0.00001
+import { FloatEquals } from "../utils/matrixUtils"
 
 class Tuple {
 	x: number
@@ -11,11 +11,6 @@ class Tuple {
 		this.y = y
 		this.z = z
 		this.w = w
-	}
-
-	// private function to compare two floats
-	private floatEquals(a: number, b: number) {
-		return Math.abs(a - b) < EPSILON
 	}
 
 	isValid() {
@@ -141,10 +136,6 @@ function createPoint(x: number, y: number, z: number) {
 
 function createVector(x: number, y: number, z: number) {
 	return new Vector(x, y, z)
-}
-
-function FloatEquals(a: number, b: number) {
-	return Math.abs(a - b) < EPSILON
 }
 
 export {
