@@ -1,4 +1,14 @@
-import { FloatEquals, identity, matrixMultiply, rotationXMatrix, rotationYMatrix, rotationZMatrix, scalingMatrix, shear, translationMatrix } from "../utils/matrixUtils"
+import {
+	FloatEquals,
+	identity,
+	matrixMultiply,
+	rotationXMatrix,
+	rotationYMatrix,
+	rotationZMatrix,
+	scalingMatrix,
+	shear,
+	translationMatrix,
+} from "../utils/matrixUtils"
 import { Tuple } from "./Tuple"
 
 class Matrix {
@@ -13,19 +23,19 @@ class Matrix {
 	}
 
 	static identity(n: number | undefined = undefined): Matrix {
-        if (typeof n !== "number") {
-            return new Matrix(identity())
-        } else {
-            return new Matrix(
-                Array(n)
-                    .fill(0)
-                    .map((_, index) => {
-                        const rowArray = Array(n).fill(0)
-                        rowArray[index] = 1
-                        return rowArray
-                    })
-            )
-        }
+		if (typeof n !== "number") {
+			return new Matrix(identity())
+		} else {
+			return new Matrix(
+				Array(n)
+					.fill(0)
+					.map((_, index) => {
+						const rowArray = Array(n).fill(0)
+						rowArray[index] = 1
+						return rowArray
+					})
+			)
+		}
 	}
 
 	get(row: number, col: number): number {
@@ -77,137 +87,120 @@ class Matrix {
 		throw new Error("Target is not valid multiplication target")
 	}
 
-    transpose(): Matrix {
-        let result: number[][] = Array(this.n)
-            .fill(0)
-            .map(() => Array(this.m).fill(0))
+	transpose(): Matrix {
+		let result: number[][] = Array(this.n)
+			.fill(0)
+			.map(() => Array(this.m).fill(0))
 
-        for (let i = 0; i < this.m; i++) {
-            for (let j = 0; j < this.n; j++) {
-                result[j][i] = this.mat[i][j]
-            }
-        }
+		for (let i = 0; i < this.m; i++) {
+			for (let j = 0; j < this.n; j++) {
+				result[j][i] = this.mat[i][j]
+			}
+		}
 
-        return new Matrix(result)
-    }
+		return new Matrix(result)
+	}
 
-    determinant(): number {
-        if (this.m !== this.n) throw new Error("Matrix is not square")
+	determinant(): number {
+		if (this.m !== this.n) throw new Error("Matrix is not square")
 
-        if (this.m === 2) {
-            return this.mat[0][0] * this.mat[1][1] - this.mat[0][1] * this.mat[1][0]
-        }
+		if (this.m === 2) {
+			return (
+				this.mat[0][0] * this.mat[1][1] -
+				this.mat[0][1] * this.mat[1][0]
+			)
+		}
 
-        let result = 0
+		let result = 0
 
-        for (let i = 0; i < this.m; i++) {
-            // will recurse back on determinant() through cofactor, up to base case
-            result += this.mat[0][i] * this.cofactor(0, i) 
-        }
+		for (let i = 0; i < this.m; i++) {
+			// will recurse back on determinant() through cofactor, up to base case
+			result += this.mat[0][i] * this.cofactor(0, i)
+		}
 
-        return result
-    }
+		return result
+	}
 
-    submatrix(a: number, b: number): Matrix {
-        if (a >= this.m || b >= this.n || a < 0 || b < 0) {
-            throw new Error("Out of bounds")
-        }
+	submatrix(a: number, b: number): Matrix {
+		if (a >= this.m || b >= this.n || a < 0 || b < 0) {
+			throw new Error("Out of bounds")
+		}
 
-        let result: number[][] = Array(this.m - 1)
-            .fill(0)
-            .map(() => Array(this.n - 1).fill(null))
+		let result: number[][] = Array(this.m - 1)
+			.fill(0)
+			.map(() => Array(this.n - 1).fill(null))
 
-        for (let i = 0; i < this.m - 1; i++) {
-            for (let j = 0; j < this.n - 1; j++) {
-                result[i][j] = this.mat[i >= a ? i + 1 : i][j >= b ? j + 1 : j]
-            }
-        }
+		for (let i = 0; i < this.m - 1; i++) {
+			for (let j = 0; j < this.n - 1; j++) {
+				result[i][j] = this.mat[i >= a ? i + 1 : i][j >= b ? j + 1 : j]
+			}
+		}
 
-        return new Matrix(result)
-    }
+		return new Matrix(result)
+	}
 
-    minor(i: number, j: number): number {
-        return this.submatrix(i, j).determinant()
-    }
+	minor(i: number, j: number): number {
+		return this.submatrix(i, j).determinant()
+	}
 
-    cofactor(i: number, j: number): number {
-        let minor = this.minor(i, j)
-        return (i + j) % 2 == 0 ? minor : -minor
-    }
+	cofactor(i: number, j: number): number {
+		let minor = this.minor(i, j)
+		return (i + j) % 2 == 0 ? minor : -minor
+	}
 
-    invert(): Matrix {
-        if (this.determinant() === 0) throw new Error("Matrix is not invertible")
+	invert(): Matrix {
+		if (this.determinant() === 0)
+			throw new Error("Matrix is not invertible")
 
-        let result: number[][] = Array(this.m)
-            .fill(0)
-            .map(() => Array(this.n).fill(null))
+		let result: number[][] = Array(this.m)
+			.fill(0)
+			.map(() => Array(this.n).fill(null))
 
-        for (let i = 0; i < this.m; i++) {
-            for (let j = 0; j < this.n; j++) {
-                // for each element, get the cofactor
-                let c = this.cofactor(i, j)
-                // transpose and divide by determinant
-                result[j][i] = c / this.determinant()
-            }
-        }
+		for (let i = 0; i < this.m; i++) {
+			for (let j = 0; j < this.n; j++) {
+				// for each element, get the cofactor
+				let c = this.cofactor(i, j)
+				// transpose and divide by determinant
+				result[j][i] = c / this.determinant()
+			}
+		}
 
-        return new Matrix(result)
-    }
+		return new Matrix(result)
+	}
 
-    // matrix transformation functions for fluent API
-    translate(x: number, y: number, z: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                translationMatrix(x, y, z),
-                this.mat
-            )
-        )
-    }
+	// matrix transformation functions for fluent API
+	translate(x: number, y: number, z: number): Matrix {
+		return new Matrix(matrixMultiply(translationMatrix(x, y, z), this.mat))
+	}
 
-    scale(x: number, y: number, z: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                scalingMatrix(x, y, z),
-                this.mat
-            )
-        )
-    }
+	scale(x: number, y: number, z: number): Matrix {
+		return new Matrix(matrixMultiply(scalingMatrix(x, y, z), this.mat))
+	}
 
-    rotateX(radians: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                rotationXMatrix(radians),
-                this.mat
-            )
-        )
-    }
+	rotateX(radians: number): Matrix {
+		return new Matrix(matrixMultiply(rotationXMatrix(radians), this.mat))
+	}
 
-    rotateY(radians: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                rotationYMatrix(radians),
-                this.mat
-            )
-        )
-    }
+	rotateY(radians: number): Matrix {
+		return new Matrix(matrixMultiply(rotationYMatrix(radians), this.mat))
+	}
 
-    rotateZ(radians: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                rotationZMatrix(radians),
-                this.mat
-            )
-        )
-    }
+	rotateZ(radians: number): Matrix {
+		return new Matrix(matrixMultiply(rotationZMatrix(radians), this.mat))
+	}
 
-    shearing(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): Matrix {
-        return new Matrix(
-            matrixMultiply(
-                shear(xy, xz, yx, yz, zx, zy),
-                this.mat
-            )
-        )
-    }
+	shearing(
+		xy: number,
+		xz: number,
+		yx: number,
+		yz: number,
+		zx: number,
+		zy: number
+	): Matrix {
+		return new Matrix(
+			matrixMultiply(shear(xy, xz, yx, yz, zx, zy), this.mat)
+		)
+	}
 }
 
 export { Matrix }
