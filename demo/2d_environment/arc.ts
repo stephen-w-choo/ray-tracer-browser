@@ -1,11 +1,11 @@
-import { createPoint, createVector } from "../../src/types/Tuple"
 import {
-	tick,
 	Environment,
 	Projectile,
+	tick,
 } from "../../src/environment/environment"
 import { Canvas } from "../../src/types/Canvas"
 import { Color } from "../../src/types/Color"
+import { createPoint, createVector } from "../../src/types/Tuple"
 import { makePPM } from "../../src/utils/bunUtils/makePPM"
 
 const start = createPoint(0, 1, 0)

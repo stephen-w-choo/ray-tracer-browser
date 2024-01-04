@@ -1,7 +1,7 @@
-import { Tuple } from "./Tuple"
 import { intersection } from "../utils/rayUtils"
-import { Sphere } from "./Sphere"
 import { Matrix } from "./Matrix"
+import { Sphere } from "./Sphere"
+import { Tuple } from "./Tuple"
 
 class Ray {
 	origin: Tuple

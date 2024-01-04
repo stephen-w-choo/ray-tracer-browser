@@ -1,7 +1,7 @@
-import { makePPM } from "../../src/utils/bunUtils/makePPM"
+import fs from "fs"
 import { Canvas } from "../../src/types/Canvas"
 import { createColor } from "../../src/types/Color"
-import fs from "fs"
+import { makePPM } from "../../src/utils/bunUtils/makePPM"
 
 // Set up File IO mocks
 jest.mock("fs", () => ({

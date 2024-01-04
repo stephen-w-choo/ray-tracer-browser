@@ -1,5 +1,4 @@
-import { Tuple, Point, Vector } from "../types/Tuple"
-import { FloatEquals } from "../utils/matrixUtils"
+import { Point, Vector } from "../types/Tuple"
 
 // Projectile type that is composed of an instance of a Tuple and a Vector
 interface Projectile {
@@ -37,4 +36,4 @@ function run() {
 	}
 }
 
-export { Projectile, Environment, tick }
+export { Environment, Projectile, tick }

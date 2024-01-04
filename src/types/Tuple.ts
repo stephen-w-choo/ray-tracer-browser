@@ -139,11 +139,11 @@ function createVector(x: number, y: number, z: number) {
 }
 
 export {
-	Tuple,
-	Point,
-	Vector,
-	createTuple,
-	createPoint,
-	createVector,
 	FloatEquals,
+	Point,
+	Tuple,
+	Vector,
+	createPoint,
+	createTuple,
+	createVector,
 }

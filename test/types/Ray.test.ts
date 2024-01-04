@@ -1,7 +1,7 @@
-import { createPoint, createVector } from "../../src/types/Tuple"
 import { Ray } from "../../src/types/Ray"
 import { Sphere } from "../../src/types/Sphere"
-import { hit, intersection } from "../../src/utils/rayUtils"
+import { createPoint, createVector } from "../../src/types/Tuple"
+import { hit } from "../../src/utils/rayUtils"
 
 describe("Ray", () => {
 	test("Creating and querying a ray", () => {

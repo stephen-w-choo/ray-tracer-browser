@@ -1,6 +1,6 @@
 import {
-	Projectile,
 	Environment,
+	Projectile,
 	tick,
 } from "../../src/environment/environment"
 import { createPoint, createVector } from "../../src/types/Tuple"
