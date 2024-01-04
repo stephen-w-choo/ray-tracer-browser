@@ -22,6 +22,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "prettier": "^3.1.1"
   }
 }

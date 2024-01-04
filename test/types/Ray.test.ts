@@ -84,61 +84,61 @@ describe("Ray-Sphere intersection", () => {
 })
 
 describe("Ray hits", () => {
-    test("The hit, when all intersections have positive t", () => {
-        // Given
-        const s = new Sphere()
-        const i1 = { t: 1, object: s }
-        const i2 = { t: 2, object: s }
-        const xs = [i1, i2]
+	test("The hit, when all intersections have positive t", () => {
+		// Given
+		const s = new Sphere()
+		const i1 = { t: 1, object: s }
+		const i2 = { t: 2, object: s }
+		const xs = [i1, i2]
 
-        // When
-        const i = hit(xs)
+		// When
+		const i = hit(xs)
 
-        // Then
-        expect(i).toStrictEqual(i1)
-    })
+		// Then
+		expect(i).toStrictEqual(i1)
+	})
 
-    test("The hit, when some intersections have negative t", () => {
-        // Given
-        const s = new Sphere()
-        const i1 = { t: -1, object: s }
-        const i2 = { t: 1, object: s }
-        const xs = [i1, i2]
+	test("The hit, when some intersections have negative t", () => {
+		// Given
+		const s = new Sphere()
+		const i1 = { t: -1, object: s }
+		const i2 = { t: 1, object: s }
+		const xs = [i1, i2]
 
-        // When
-        const i = hit(xs)
+		// When
+		const i = hit(xs)
 
-        // Then
-        expect(i).toStrictEqual(i2)
-    })
+		// Then
+		expect(i).toStrictEqual(i2)
+	})
 
-    test("There should be no hit, if all intersections are negative", () => {
-        // Given
-        const s = new Sphere()
-        const i1 = { t: -2, object: s }
-        const i2 = { t: -1, object: s }
-        const xs = [i1, i2]
+	test("There should be no hit, if all intersections are negative", () => {
+		// Given
+		const s = new Sphere()
+		const i1 = { t: -2, object: s }
+		const i2 = { t: -1, object: s }
+		const xs = [i1, i2]
 
-        // When
-        const i = hit(xs)
+		// When
+		const i = hit(xs)
 
-        // Then
-        expect(i).toBeNull()
-    })
+		// Then
+		expect(i).toBeNull()
+	})
 
-    test("The hit is always the lowest non-negative intersection", () => {
-        // Given
-        const s = new Sphere()
-        const i1 = { t: 5, object: s }
-        const i2 = { t: 7, object: s }
-        const i3 = { t: -3, object: s }
-        const i4 = { t: 2, object: s }
-        const xs = [i1, i2, i3, i4]
+	test("The hit is always the lowest non-negative intersection", () => {
+		// Given
+		const s = new Sphere()
+		const i1 = { t: 5, object: s }
+		const i2 = { t: 7, object: s }
+		const i3 = { t: -3, object: s }
+		const i4 = { t: 2, object: s }
+		const xs = [i1, i2, i3, i4]
 
-        // When
-        const i = hit(xs)
+		// When
+		const i = hit(xs)
 
-        // Then
-        expect(i).toStrictEqual(i4)
-    })
+		// Then
+		expect(i).toStrictEqual(i4)
+	})
 })

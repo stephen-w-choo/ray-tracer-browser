@@ -22,12 +22,15 @@ function intersection(ray: Ray, sphere: Sphere): Intersections {
 }
 
 function hit(intersections: Intersections): Intersection | null {
-    return intersections.reduce((accu, curr) => {
-        if (curr.t >= 0 && (accu === null || curr.t < accu.t)) {
-            return curr
-        } 
-        return accu
-    }, null as Intersection | null)
+	return intersections.reduce(
+		(accu, curr) => {
+			if (curr.t >= 0 && (accu === null || curr.t < accu.t)) {
+				return curr
+			}
+			return accu
+		},
+		null as Intersection | null
+	)
 }
 
 export { hit, intersection }

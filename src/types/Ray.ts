@@ -1,6 +1,7 @@
 import { Tuple } from "./Tuple"
 import { intersection } from "../utils/rayUtils"
 import { Sphere } from "./Sphere"
+import { Matrix } from "./Matrix"
 
 class Ray {
 	origin: Tuple
@@ -20,6 +21,10 @@ class Ray {
 
 	intersect(object: Sphere) {
 		return intersection(this, object)
+	}
+
+	transform(ray: Ray, transformation: Matrix) {
+		return new Ray(transformation.times(ray.origin), ray.direction)
 	}
 }
 
