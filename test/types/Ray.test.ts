@@ -1,5 +1,6 @@
 import { Ray } from "../../src/models/objectModels/Ray"
 import { Sphere } from "../../src/models/objectModels/Sphere"
+import { Matrix } from "../../src/models/objectPrimitives/Matrix"
 import { createPoint, createVector } from "../../src/models/objectPrimitives/Tuple"
 import { hit } from "../../src/utils/rayUtils"
 
@@ -166,5 +167,58 @@ describe("Ray transformations", () => {
 		// Then
 		expect(r2.origin.equals(createPoint(2, 6, 12))).toBe(true)
 		expect(r2.direction.equals(createVector(0, 3, 0))).toBe(true)
+	})
+})
+
+describe("Sphere transformations", () => {
+	test("A sphere's default transformation", () => {
+		// Given
+		let s = new Sphere()
+
+		// Then
+		expect(s.transformation.equals(Matrix.identity())).toBe(true)
+	})
+
+	test("Changing a sphere's transformation", () => {
+		// Given
+		let s1 = new Sphere()
+		let s2 = new Sphere()
+		let t = Matrix.identity().translate(2, 3, 4)
+		
+		// When
+		s1.translate(2, 3, 4)
+		s2.transform(t)
+		
+		// Then
+		expect(s1.transformation.equals(t)).toBe(true)
+		expect(s2.transformation.equals(t)).toBe(true)
+	})
+
+	test("Intersecting a scaled sphere with a ray", () => {
+		// Given
+		let r = new Ray(createPoint(0, 0, -5), createVector(0, 0, 1))
+		let s = new Sphere()
+
+		// When
+		s.scale(2, 2, 2)
+
+		// Then
+		let xs = r.intersect(s)
+		expect(xs.length).toBe(2)
+		expect(xs[0].t).toBe(3)
+		expect(xs[1].t).toBe(7)
+	})
+
+	test("Intersecting a translated sphere with a ray", () => {
+		// Given
+		let r = new Ray(createPoint(0, 0, -5), createVector(0, 0, 1))
+		let s = new Sphere()
+
+		// When
+		s.translate(5, 0, 0)
+
+		// Then
+		let xs = r.intersect(s)
+		expect(xs.length).toBe(0)
 	})
 })

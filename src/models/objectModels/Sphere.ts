@@ -14,6 +14,10 @@ class Sphere {
 		this.transformation = matrix
 	}
 
+	transform(transformation: Matrix) {
+		this.transformation = transformation.times(this.transformation)
+	}
+
 	translate(x: number, y: number, z: number) {
 		this.transformation = this.transformation.translate(x, y, z)
 		return this
