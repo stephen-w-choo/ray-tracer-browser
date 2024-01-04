@@ -1,8 +1,8 @@
-import { Canvas } from "../src/types/Canvas"
-import { Color } from "../src/types/Color"
-import { Matrix } from "../src/types/Matrix"
-import { Tuple, createPoint } from "../src/types/Tuple"
-import { makePPM } from "../src/utils/bunUtils/makePPM"
+import { Canvas } from "../models/environment/Canvas"
+import { Color } from "../models/objectPrimitives/Color"
+import { Matrix } from "../models/objectPrimitives/Matrix"
+import { Tuple, createPoint } from "../models/objectPrimitives/Tuple"
+import { makePPM } from "../utils/bunUtils/makePPM"
 
 const pointsToDraw: Tuple[] = []
 

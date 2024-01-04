@@ -1,5 +1,5 @@
-import { Matrix } from "../../src/types/Matrix"
-import { Tuple, createPoint } from "../../src/types/Tuple"
+import { Matrix } from "../../src/models/objectPrimitives/Matrix"
+import { Tuple, createPoint } from "../../src/models/objectPrimitives/Tuple"
 
 describe("Matrix type test", () => {
 	test("2x2 matrix should be represented properly", () => {

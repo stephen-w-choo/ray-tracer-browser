@@ -1,5 +1,5 @@
-import { Intersection } from "../../src/types/Intersection"
-import { Sphere } from "../../src/types/Sphere"
+import { Intersection } from "../../src/models/objectModels/Intersection"
+import { Sphere } from "../../src/models/objectModels/Sphere"
 
 describe("Intersections", () => {
 	test("An intersection encapsulates t and object", () => {

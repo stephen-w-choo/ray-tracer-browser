@@ -2,8 +2,8 @@ import {
 	Environment,
 	Projectile,
 	tick,
-} from "../../src/environment/environment"
-import { createPoint, createVector } from "../../src/types/Tuple"
+} from "../../src/models/environment/twoDimensionalEnv"
+import { createPoint, createVector } from "../../src/models/objectPrimitives/Tuple"
 
 describe("Environment where projectile starts 1 unit above origin", () => {
 	const env: Environment = {

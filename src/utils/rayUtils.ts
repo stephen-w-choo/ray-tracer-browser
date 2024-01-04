@@ -1,8 +1,11 @@
-import { Intersection, Intersections } from "../types/Intersection"
-import { Ray } from "../types/Ray"
-import { Sphere } from "../types/Sphere"
+import { Intersection, Intersections } from "../models/objectModels/Intersection"
+import { Matrix } from "../models/objectPrimitives/Matrix"
+import { Ray } from "../models/objectModels/Ray"
+import { Sphere } from "../models/objectModels/Sphere"
 
 function intersection(ray: Ray, sphere: Sphere): Intersections {
+	ray = transformRay(ray, sphere.transformation.invert())
+	
 	let sphereToRay = ray.origin.minus(sphere.position)
 
 	let a = ray.direction.dot(ray.direction)
@@ -33,4 +36,8 @@ function hit(intersections: Intersections): Intersection | null {
 	)
 }
 
-export { hit, intersection }
+function transformRay(ray: Ray, transformation: Matrix) {
+	return new Ray(transformation.times(ray.origin), transformation.times(ray.direction))
+}
+
+export { hit, intersection, transformRay }

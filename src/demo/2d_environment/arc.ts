@@ -2,11 +2,11 @@ import {
 	Environment,
 	Projectile,
 	tick,
-} from "../../src/environment/environment"
-import { Canvas } from "../../src/types/Canvas"
-import { Color } from "../../src/types/Color"
-import { createPoint, createVector } from "../../src/types/Tuple"
-import { makePPM } from "../../src/utils/bunUtils/makePPM"
+} from "../../models/environment/twoDimensionalEnv"
+import { Canvas } from "../../models/environment/Canvas"
+import { Color } from "../../models/objectPrimitives/Color"
+import { createPoint, createVector } from "../../models/objectPrimitives/Tuple"
+import { makePPM } from "../../utils/bunUtils/makePPM"
 
 const start = createPoint(0, 1, 0)
 const velocity = createVector(1, 1.8, 0).normalize().times(11.25)

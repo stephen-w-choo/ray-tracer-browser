@@ -4,7 +4,7 @@ import {
 	createPoint,
 	createTuple,
 	createVector,
-} from "../../src/types/Tuple"
+} from "../../src/models/objectPrimitives/Tuple"
 
 describe("testing classes", () => {
 	test("test point", () => {

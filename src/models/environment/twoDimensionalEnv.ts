@@ -1,4 +1,4 @@
-import { Point, Vector } from "../types/Tuple"
+import { Point, Vector } from "../objectPrimitives/Tuple"
 
 // Projectile type that is composed of an instance of a Tuple and a Vector
 interface Projectile {

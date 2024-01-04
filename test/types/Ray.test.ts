@@ -1,6 +1,6 @@
-import { Ray } from "../../src/types/Ray"
-import { Sphere } from "../../src/types/Sphere"
-import { createPoint, createVector } from "../../src/types/Tuple"
+import { Ray } from "../../src/models/objectModels/Ray"
+import { Sphere } from "../../src/models/objectModels/Sphere"
+import { createPoint, createVector } from "../../src/models/objectPrimitives/Tuple"
 import { hit } from "../../src/utils/rayUtils"
 
 describe("Ray", () => {
@@ -140,5 +140,31 @@ describe("Ray hits", () => {
 
 		// Then
 		expect(i).toStrictEqual(i4)
+	})
+})
+
+describe("Ray transformations", () => {
+	test("Translating a ray", () => {
+		// Given
+		let r = new Ray(createPoint(1, 2, 3), createVector(0, 1,0))
+	
+		// When
+		let r2 = r.transform().translate(3,4,5).build()
+
+		// Then
+		expect(r2.origin.equals(createPoint(4, 6, 8))).toBe(true)
+		expect(r2.direction.equals(createVector(0, 1, 0))).toBe(true)
+	})
+
+	test("Scaling a ray", () => {
+		// Given
+		let r = new Ray(createPoint(1, 2, 3), createVector(0, 1, 0))
+
+		// When
+		let r2 = r.transform().scale(2, 3, 4).build()
+
+		// Then
+		expect(r2.origin.equals(createPoint(2, 6, 12))).toBe(true)
+		expect(r2.direction.equals(createVector(0, 3, 0))).toBe(true)
 	})
 })

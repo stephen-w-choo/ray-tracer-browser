@@ -1,4 +1,4 @@
-import { FloatEquals } from "../utils/matrixUtils"
+import { FloatEquals } from "../../utils/matrixUtils"
 
 class Tuple {
 	x: number

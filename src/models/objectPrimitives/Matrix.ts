@@ -8,7 +8,7 @@ import {
 	scalingMatrix,
 	shear,
 	translationMatrix,
-} from "../utils/matrixUtils"
+} from "../../utils/matrixUtils"
 import { Tuple } from "./Tuple"
 
 class Matrix {

@@ -1,5 +1,5 @@
 import fs from "fs"
-import { Canvas } from "../../types/Canvas"
+import { Canvas } from "../../models/environment/Canvas"
 
 const HEADER = "P3"
 const PPM_MAX = 255
