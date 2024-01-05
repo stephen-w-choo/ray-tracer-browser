@@ -1,8 +1,7 @@
-import { identity } from "../../utils/matrixUtils"
 import { intersection, transformRay } from "../../utils/rayUtils"
 import { Matrix } from "../objectPrimitives/Matrix"
-import { Sphere } from "./Sphere"
 import { Tuple } from "../objectPrimitives/Tuple"
+import { Sphere } from "./Sphere"
 
 class Ray {
 	origin: Tuple
@@ -71,12 +70,19 @@ class TransformationBuilder {
 		zx: number,
 		zy: number
 	) {
-		this.transformation = this.transformation.shearing(xy, xz, yx, yz, zx, zy)
+		this.transformation = this.transformation.shearing(
+			xy,
+			xz,
+			yx,
+			yz,
+			zx,
+			zy
+		)
 		return this
 	}
 
 	build() {
-		return transformRay(this.originalRay, this.transformation) 
+		return transformRay(this.originalRay, this.transformation)
 	}
 }
 

@@ -16,8 +16,6 @@ const OUTPUT_FILE_PATH = "output_ppm/"
 
 // const ppm = makePPM(canvas, OUTPUT_FILE_PATH + "test.ppm")
 
-
-
 // const canvas2 = new Canvas(2, 10)
 // const c = createColor(1, 0.8, 0.6)
 

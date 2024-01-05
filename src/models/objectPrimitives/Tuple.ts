@@ -97,6 +97,10 @@ class Tuple {
 		)
 	}
 
+	reflect(normal: Tuple) {
+		
+	}
+
 	toPoint() {
 		if (this.w !== 1) {
 			throw new Error("Tuple is not a point")
