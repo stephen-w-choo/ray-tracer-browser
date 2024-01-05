@@ -1,4 +1,4 @@
-import { Color, createColor } from "./Color"
+import { Color, createColor } from "../objectPrimitives/Color"
 
 export class Canvas {
 	width: number

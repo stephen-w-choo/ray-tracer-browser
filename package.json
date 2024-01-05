@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc",
+    "build": "tsc -p tsconfig-build.json",
     "format": "prettier --write \"**/*.ts\""
   },
   "keywords": [],
@@ -22,6 +22,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "prettier-plugin-organize-imports": "^3.2.4"
   }
 }

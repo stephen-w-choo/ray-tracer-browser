@@ -1,5 +1,5 @@
-import { Canvas } from "../../src/types/Canvas"
-import { createColor } from "../../src/types/Color"
+import { Canvas } from "../../src/models/environment/Canvas"
+import { createColor } from "../../src/models/objectPrimitives/Color"
 
 describe("Canvas", () => {
 	test("Canvas should create a Canvas object of the right height, width, with white Colors", () => {

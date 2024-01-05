@@ -1,4 +1,4 @@
-import { Canvas } from "../types/Canvas"
+import { Canvas } from "../../models/environment/Canvas"
 
 const PIXEL_SIZE = 1
 

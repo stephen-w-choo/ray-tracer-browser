@@ -1,4 +1,4 @@
-import { Color, createColor } from "../../src/types/Color"
+import { Color, createColor } from "../../src/models/objectPrimitives/Color"
 
 describe("Color", () => {
 	test("Colors contain the right fields", () => {

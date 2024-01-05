@@ -1,10 +1,10 @@
-import {
-	createTuple,
-	createPoint,
-	createVector,
-	FloatEquals,
-} from "../../src/types/Tuple"
 import { describe, expect, test } from "@jest/globals"
+import {
+	FloatEquals,
+	createPoint,
+	createTuple,
+	createVector,
+} from "../../src/models/objectPrimitives/Tuple"
 
 describe("testing classes", () => {
 	test("test point", () => {
