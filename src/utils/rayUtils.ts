@@ -3,7 +3,7 @@ import { Matrix } from "../models/objectPrimitives/Matrix"
 import { Ray } from "../models/objectModels/Ray"
 import { Sphere } from "../models/objectModels/Sphere"
 
-function intersection(ray: Ray, sphere: Sphere): Intersections {
+function intersections(ray: Ray, sphere: Sphere): Intersections {
 	ray = transformRay(ray, sphere.transformation.invert())
 	
 	let sphereToRay = ray.origin.minus(sphere.position)
@@ -40,4 +40,4 @@ function transformRay(ray: Ray, transformation: Matrix) {
 	return new Ray(transformation.times(ray.origin), transformation.times(ray.direction))
 }
 
-export { hit, intersection, transformRay }
+export { hit, intersections as intersection, transformRay }
