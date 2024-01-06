@@ -8,8 +8,9 @@ class Ray {
 	direction: Tuple
 
 	constructor(origin: Tuple, direction: Tuple) {
-		if (origin.w !== 1) throw new Error("origin is not a point")
-		if (direction.w !== 0) throw new Error("direction is not a vector")
+		// TODO - debugging purposes only
+		// if (origin.w !== 1) throw new Error("origin is not a point")
+		// if (direction.w !== 0) throw new Error("direction is not a vector")
 
 		this.origin = origin
 		this.direction = direction

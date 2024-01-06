@@ -1,5 +1,6 @@
 import { Matrix } from "../objectPrimitives/Matrix"
 import { Tuple } from "../objectPrimitives/Tuple"
+import { Material, materialOf } from "./Material"
 
 class Sphere {
 	// TODO - implement other properties
@@ -7,11 +8,13 @@ class Sphere {
 	origin: Tuple
 	radius: number
 	transformation: Matrix
+	material: Material
 
-	constructor(matrix = Matrix.identity()) {
+	constructor(matrix = Matrix.identity(), material = materialOf()) {
 		this.origin = new Tuple(0, 0, 0, 1)
 		this.radius = 1
 		this.transformation = matrix
+		this.material = material
 	}
 
 	transform(transformation: Matrix) {
@@ -63,32 +66,11 @@ class Sphere {
 	}
 
 	normal(point: Tuple): Tuple {
-		// let invertedTransformation = this.transformation.invert()
-
-		// // convert point from world space to object space
-		// // get the normalised vector in the object space
-		// let objectNormal = invertedTransformation
-		// 			.times(point)
-		// 			.minus(this.origin)
-
-		// // now convert the normalised vector back to the world space
-		// let worldNormal = invertedTransformation
-		// 			.transpose()
-		// 			.times(objectNormal)
-		// console.log(`transformation : ${this.transformation.mat}`)
-
-		let objectPoint = this.transformation.invert().times(point)
-		// console.log(`objectPoint : ${objectPoint.x}, ${objectPoint.y}, ${objectPoint.z}`)
-		let objectNormal = objectPoint.minus(this.origin)
-		// console.log(`objectNormal : ${objectNormal.x}, ${objectNormal.y}, ${objectNormal.z}`)
-		let worldNormal = this.transformation
-			.invert()
-			.transpose()
-			.times(objectNormal)
-		// console.log(`worldNormal ${worldNormal.x}, ${worldNormal.y}, ${worldNormal.z}`)
+		let inverted = this.transformation.invert()
+		let objectNormal = inverted.times(point).minus(this.origin)
+		let worldNormal = inverted.transpose().times(objectNormal)
 
 		worldNormal.w = 0
-		// console.log(worldNormal)
 		return worldNormal.normalize()
 	}
 }

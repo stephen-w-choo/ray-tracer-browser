@@ -115,3 +115,17 @@ describe("testing normalisation", () => {
 		expect(FloatEquals(a.normalize().magnitude(), 1)).toBe(true)
 	})
 })
+
+describe("Testing reflection", () => {
+	test("Reflecting a vector off a slanted surface", () => {
+		// Given
+		let v = createVector(0, -1, 0)
+		let n = createVector(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0)
+
+		// When
+		let r = v.reflect(n)
+
+		// Then
+		expect(r.equals(createVector(1, 0, 0)))
+	})
+})

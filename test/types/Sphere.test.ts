@@ -1,3 +1,4 @@
+import { materialOf } from "../../src/models/objectModels/Material"
 import { Ray } from "../../src/models/objectModels/Ray"
 import { Sphere } from "../../src/models/objectModels/Sphere"
 import { Matrix } from "../../src/models/objectPrimitives/Matrix"
@@ -130,5 +131,33 @@ describe("Getting the normal of a sphere surface", () => {
 
 		// Then
 		expect(n.equals(vectorTo(0, 0.97014, -0.24254))).toBe(true)
+	})
+})
+
+describe("Sphere materials", () => {
+	test("A sphere has a default material", () => {
+		// Given
+		let s = new Sphere()
+		let defaultMaterial = materialOf()
+
+		// When 
+		let m = s.material
+
+		// Then
+		expect(m.color.equals(defaultMaterial.color)).toBe(true)
+		expect(m.ambi).toBe(defaultMaterial.ambi)
+		expect(m.diffuse).toBe(defaultMaterial.diffuse)
+		expect(m.shininess).toBe(defaultMaterial.shininess)
+		expect(m.specular).toBe(defaultMaterial.specular)
+	})
+
+	test("A sphere may be assigned a material", () => {
+		// Given
+		let newMaterial = materialOf()
+		newMaterial.ambi = 1
+		let s = new Sphere(Matrix.identity(), newMaterial)
+
+		// Then
+		expect(s.material.ambi).toBe(1)
 	})
 })

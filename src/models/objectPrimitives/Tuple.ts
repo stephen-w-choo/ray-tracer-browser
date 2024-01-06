@@ -98,7 +98,7 @@ class Tuple {
 	}
 
 	reflect(normal: Tuple) {
-		
+		return this.minus(normal.times(2).times(this.dot(normal)))
 	}
 
 	toPoint() {
