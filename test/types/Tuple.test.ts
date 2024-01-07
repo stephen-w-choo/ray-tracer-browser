@@ -2,8 +2,8 @@ import { describe, expect, test } from "@jest/globals"
 import {
 	FloatEquals,
 	createPoint,
-	tupleOf,
 	createVector,
+	tupleOf,
 } from "../../src/models/objectPrimitives/Tuple"
 
 describe("testing classes", () => {

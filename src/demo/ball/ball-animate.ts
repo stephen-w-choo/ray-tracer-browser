@@ -18,8 +18,8 @@ const LIGHT_COLOR: [number, number, number] = [1, 1, 1]
 function makeAnimation() {
 	lightFrames.forEach(async (frame, index) => {
 		let canvas = await drawBall(
-			frame.camera, 
-			frame.height - 1.5, 
+			frame.camera,
+			frame.height - 1.5,
 			frame.scale,
 			CANVAS_SIZE
 		)
