@@ -66,7 +66,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere()
 
 		// When
-		let n = s.normal(pointAt(1, 0, 0))
+		let n = s.normalAt(pointAt(1, 0, 0))
 
 		// Then
 		expect(n.equals(vectorTo(1, 0, 0))).toBe(true)
@@ -77,7 +77,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere()
 
 		// When
-		let n = s.normal(pointAt(0, 1, 0))
+		let n = s.normalAt(pointAt(0, 1, 0))
 
 		// Then
 		expect(n.equals(vectorTo(0, 1, 0))).toBe(true)
@@ -88,7 +88,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere()
 
 		// When
-		let n = s.normal(pointAt(0, 0, 1))
+		let n = s.normalAt(pointAt(0, 0, 1))
 
 		// Then
 		expect(n.equals(vectorTo(0, 0, 1))).toBe(true)
@@ -99,7 +99,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere()
 
 		// When
-		let n = s.normal(
+		let n = s.normalAt(
 			pointAt(Math.sqrt(3) / 3, Math.sqrt(3) / 3, Math.sqrt(3) / 3)
 		)
 
@@ -116,7 +116,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere().translate(0, 1, 0)
 
 		// When
-		let n = s.normal(pointAt(0, 1.70711, -0.70711))
+		let n = s.normalAt(pointAt(0, 1.70711, -0.70711))
 
 		// Then
 		expect(n.equals(vectorTo(0, 0.70711, -0.70711))).toBe(true)
@@ -127,7 +127,7 @@ describe("Getting the normal of a sphere surface", () => {
 		let s = new Sphere().rotateZ(Math.PI / 5).scale(1, 0.5, 1)
 
 		// When
-		let n = s.normal(pointAt(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2))
+		let n = s.normalAt(pointAt(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2))
 
 		// Then
 		expect(n.equals(vectorTo(0, 0.97014, -0.24254))).toBe(true)
@@ -140,7 +140,7 @@ describe("Sphere materials", () => {
 		let s = new Sphere()
 		let defaultMaterial = materialOf()
 
-		// When 
+		// When
 		let m = s.material
 
 		// Then

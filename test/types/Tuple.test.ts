@@ -2,7 +2,7 @@ import { describe, expect, test } from "@jest/globals"
 import {
 	FloatEquals,
 	createPoint,
-	createTuple,
+	tupleOf,
 	createVector,
 } from "../../src/models/objectPrimitives/Tuple"
 
@@ -51,26 +51,26 @@ describe("testing subtraction", () => {
 
 describe("testing negation", () => {
 	test("negating a tuple", () => {
-		let a = createTuple(1, -2, 3, -4)
-		expect(a.negate()).toEqual(createTuple(-1, 2, -3, 4))
+		let a = tupleOf(1, -2, 3, -4)
+		expect(a.negate()).toEqual(tupleOf(-1, 2, -3, 4))
 	})
 })
 
 describe("testing multiplication", () => {
 	test("multiplying a tuple by a scalar", () => {
-		let a = createTuple(1, -2, 3, -4)
-		expect(a.times(3.5).equals(createTuple(3.5, -7, 10.5, -14))).toBe(true)
+		let a = tupleOf(1, -2, 3, -4)
+		expect(a.times(3.5).equals(tupleOf(3.5, -7, 10.5, -14))).toBe(true)
 	})
 	test("multiplying a tuple by a fraction", () => {
-		let a = createTuple(1, -2, 3, -4)
-		expect(a.times(0.5).equals(createTuple(0.5, -1, 1.5, -2))).toBe(true)
+		let a = tupleOf(1, -2, 3, -4)
+		expect(a.times(0.5).equals(tupleOf(0.5, -1, 1.5, -2))).toBe(true)
 	})
 })
 
 describe("testing division", () => {
 	test("dividing a tuple by a scalar", () => {
-		let a = createTuple(1, -2, 3, -4)
-		expect(a.divide(2).equals(createTuple(0.5, -1, 1.5, -2))).toBe(true)
+		let a = tupleOf(1, -2, 3, -4)
+		expect(a.divide(2).equals(tupleOf(0.5, -1, 1.5, -2))).toBe(true)
 	})
 })
 

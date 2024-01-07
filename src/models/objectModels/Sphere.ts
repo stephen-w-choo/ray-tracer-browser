@@ -65,7 +65,7 @@ class Sphere {
 		return this
 	}
 
-	normal(point: Tuple): Tuple {
+	normalAt(point: Tuple): Tuple {
 		let inverted = this.transformation.invert()
 		let objectNormal = inverted.times(point).minus(this.origin)
 		let worldNormal = inverted.transpose().times(objectNormal)

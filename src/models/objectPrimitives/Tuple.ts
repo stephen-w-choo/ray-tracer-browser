@@ -130,24 +130,16 @@ class Vector extends Tuple {
 	}
 }
 
-function createTuple(x: number, y: number, z: number, w: number) {
+export function tupleOf(x: number, y: number, z: number, w: number) {
 	return new Tuple(x, y, z, w)
 }
 
-function createPoint(x: number, y: number, z: number) {
+export function createPoint(x: number, y: number, z: number) {
 	return new Tuple(x, y, z, 1)
 }
 
-function createVector(x: number, y: number, z: number) {
+export function createVector(x: number, y: number, z: number) {
 	return new Tuple(x, y, z, 0)
 }
 
-export {
-	FloatEquals,
-	Point,
-	Tuple,
-	Vector,
-	createPoint,
-	createTuple,
-	createVector,
-}
+export { FloatEquals, Point, Tuple, Vector }
