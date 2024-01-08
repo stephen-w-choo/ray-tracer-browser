@@ -1,33 +1,31 @@
 # ray-tracer-browser
 A 3d renderer for the browser. 
 
-A personal project to practice linear algebra, test-driven development and TypeScript.
+A personal project to practice linear algebra, test-driven development and optimisation.
 
-Currently on Chapter 3.
+## Current milestones
+- [x] 2D environment and canvas implemented
+- [x] Matrix multiplication and associated operations
+- [ ] Optimisation of matrix multiplication - TBD. I can probably still squeeze quite a bit more performance out of TypeScript by using Float32Arrays, rather than the loosey-goosey Arrays that are the default, but I WILL need to eventually target WASM to get anything approaching respectable performance
+- [x] Shaders implemented using the Phong reflection algorithm
 
+![ezgif-3-5b96601414](https://github.com/stephen-w-choo/ray-tracer-browser/assets/96100043/d61e6ae8-504f-4e79-bfa3-599ae61fbbc7)
+![bouncing](https://github.com/stephen-w-choo/ray-tracer-browser/assets/96100043/81b37373-143a-4166-8426-21f92be0d333)
+
+It's not much, but I'm pretty proud of what I've been able to do so far!
 
 ## How?
-
-![jbtracer_hu6d5b8b63a4954cb696e89b39f929331b_958829_375x0_resize_q75_box](https://user-images.githubusercontent.com/96100043/231012265-9fef0cae-2c2e-46ff-bed7-893515e5db18.jpg)
 
 I'm using Jamis Buck's 'The Ray Tracer Challenge' as my guide for this.
 The book contains no code at all - just tests that you have to pass, so it's language agnostic. 
 It's pretty fun!
 
-I've chosen TypeScript here just because I wanted something that is able to run in the browser. It will also save me having to write my own client to actually visualise anything I generate.
+I've chosen TypeScript here just because I wanted something that is able to run in the browser. 
+In hindsight, this was probably not the best choice. It's not fast, and doesn't have operator overloading. In order to run within the browser at anything approaching a respectable speed I'm going to have to target WASM (which I'm going to do in the future with AssemblyScript), and if I was going to target WASM to begin with I should have picked a compiled language.
 
-## Why?
-
-Well...
-
-* Hasn't this already been done? 🤡 Yes, by Three.js.
-
-* Isn't this going to be slower, less optimised, less featureful, and overall worse than Three.js in every way? 🤡 Yes.
-
-* Am I having more fun with programming than I've had in a long time? 💪 Yes, I am.
 
 ## Regrets/issues I've run into so far
 
-* The lack of operator overloading in TypeScript really, really hurts. Using class methods for matrix operations is ugly, to say the least.
-
-* Matrix multiplication in TS/JS is... slow, to say the least. Unsure if there are any libraries I can import that will speed things up.
+* Language choice - as mentioned before, in hindsight, TypeScript was not the best choice, mainly due to performance issues. In addition, the lack of operator overloading in TypeScript makes complex matrix operations difficult to read, and easy to introduce bugs into.
+* Not a major issue as much, but I'm definitely encountering issues sometimes with the object oriented style. I really like having a fluent API with method chaining, which is why I've tried to implement class methods where possible, but it doesn't always fit. The compromise I've found now is to implement it as a plain method first, before calling it as a class method to maintain a fluent API
+* Also not an issue, but I have never implemented so many instances of the Builder pattern in my life. It seems to fit this particular project quite well.
