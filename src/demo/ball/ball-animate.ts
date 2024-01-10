@@ -1,3 +1,4 @@
+import { FfmpegCommand } from "fluent-ffmpeg"
 import { Canvas } from "../../models/environment/Canvas"
 import { Light, lighting } from "../../models/objectModels/Light"
 import { Ray } from "../../models/objectModels/Ray"
@@ -6,6 +7,7 @@ import { Color } from "../../models/objectPrimitives/Color"
 import { Tuple, createPoint } from "../../models/objectPrimitives/Tuple"
 import { makePPM } from "../../utils/bunUtils/makePPM"
 import { hit } from "../../utils/rayUtils"
+import { join } from "path"
 
 // represents the size of the camera field of view
 const CAMERA_FOV = 10.0
@@ -15,15 +17,20 @@ const CAMERA_DISTANCE = 10
 const SPHERE_COLOR: [number, number, number] = [1, 0.2, 1]
 const LIGHT_COLOR: [number, number, number] = [1, 1, 1]
 
-function makeAnimation() {
+function makeBallFrames(frameName: string) {
+	const folderName = join(__dirname, frameName)
+
 	lightFrames.forEach(async (frame, index) => {
+		// Format index to be 2 digits
+		const formattedIndex = index.toString().padStart(2, '0')
+
 		let canvas = await drawBall(
 			frame.camera,
 			frame.height - 1.5,
 			frame.scale,
 			CANVAS_SIZE
 		)
-		makePPM(canvas, `ball-light${index}.ppm`)
+		makePPM(canvas, join(folderName, `ball-light${formattedIndex}.ppm`))
 	})
 }
 
@@ -88,4 +95,11 @@ function createRay(origin: Tuple, destination: Tuple): Ray {
 	return new Ray(origin, destination.minus(origin).normalize())
 }
 
-makeAnimation()
+function makeAnimation(videoName: string, makeFrames: (frameName: string) => void) {
+	// Takes a function to make the frames
+
+	makeFrames(videoName + "frame")
+	const command = new FfmpegCommand()
+
+	command.addInput()
+}

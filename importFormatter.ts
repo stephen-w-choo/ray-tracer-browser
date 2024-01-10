@@ -3,7 +3,7 @@ import { join } from "path"
 
 const BUILD_FOLDER_NAME = "build"
 
-const mainDirectoryPath: string = join(__dirname, "build")
+const mainDirectoryPath = join(__dirname, "build")
 
 function importFormatter(directoryPath: string) {
 	readdir(directoryPath, { withFileTypes: true }, (err, entries) => {
