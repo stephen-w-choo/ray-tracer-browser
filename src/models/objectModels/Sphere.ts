@@ -1,17 +1,20 @@
 import { Matrix } from "../objectPrimitives/Matrix"
 import { Tuple } from "../objectPrimitives/Tuple"
+import { Material, materialOf } from "./Material"
 
 class Sphere {
 	// TODO - implement other properties
 	// for now will default
-	position: Tuple
+	origin: Tuple
 	radius: number
 	transformation: Matrix
+	material: Material
 
-	constructor(matrix = Matrix.identity()) {
-		this.position = new Tuple(0, 0, 0, 1)
+	constructor(matrix = Matrix.identity(), material = materialOf()) {
+		this.origin = new Tuple(0, 0, 0, 1)
 		this.radius = 1
 		this.transformation = matrix
+		this.material = material
 	}
 
 	transform(transformation: Matrix) {
@@ -51,8 +54,24 @@ class Sphere {
 		zx: number,
 		zy: number
 	) {
-		this.transformation = this.transformation.shearing(xy, xz, yx, yz, zx, zy)
+		this.transformation = this.transformation.shearing(
+			xy,
+			xz,
+			yx,
+			yz,
+			zx,
+			zy
+		)
 		return this
+	}
+
+	normalAt(point: Tuple): Tuple {
+		let inverted = this.transformation.invert()
+		let objectNormal = inverted.times(point).minus(this.origin)
+		let worldNormal = inverted.transpose().times(objectNormal)
+
+		worldNormal.w = 0
+		return worldNormal.normalize()
 	}
 }
 

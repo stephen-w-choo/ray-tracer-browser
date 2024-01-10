@@ -1,9 +1,9 @@
+import { Canvas } from "../../models/environment/Canvas"
 import {
 	Environment,
 	Projectile,
 	tick,
 } from "../../models/environment/twoDimensionalEnv"
-import { Canvas } from "../../models/environment/Canvas"
 import { Color } from "../../models/objectPrimitives/Color"
 import { createPoint, createVector } from "../../models/objectPrimitives/Tuple"
 import { makePPM } from "../../utils/bunUtils/makePPM"

@@ -1,16 +1,16 @@
-import { identity } from "../../utils/matrixUtils"
 import { intersection, transformRay } from "../../utils/rayUtils"
 import { Matrix } from "../objectPrimitives/Matrix"
-import { Sphere } from "./Sphere"
 import { Tuple } from "../objectPrimitives/Tuple"
+import { Sphere } from "./Sphere"
 
 class Ray {
 	origin: Tuple
 	direction: Tuple
 
 	constructor(origin: Tuple, direction: Tuple) {
-		if (origin.w !== 1) throw new Error("origin is not a point")
-		if (direction.w !== 0) throw new Error("direction is not a vector")
+		// TODO - debugging purposes only
+		// if (origin.w !== 1) throw new Error("origin is not a point")
+		// if (direction.w !== 0) throw new Error("direction is not a vector")
 
 		this.origin = origin
 		this.direction = direction
@@ -71,12 +71,19 @@ class TransformationBuilder {
 		zx: number,
 		zy: number
 	) {
-		this.transformation = this.transformation.shearing(xy, xz, yx, yz, zx, zy)
+		this.transformation = this.transformation.shearing(
+			xy,
+			xz,
+			yx,
+			yz,
+			zx,
+			zy
+		)
 		return this
 	}
 
 	build() {
-		return transformRay(this.originalRay, this.transformation) 
+		return transformRay(this.originalRay, this.transformation)
 	}
 }
 

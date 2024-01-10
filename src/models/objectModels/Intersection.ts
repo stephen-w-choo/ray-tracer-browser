@@ -6,7 +6,11 @@ type Intersection = {
 }
 
 type Intersections = Intersection[]
-// TODO - possibly convert into a heap
-// still unclear on
+// TODO - possibly convert into a heap - unsure if it's faster than
+// running a linear search each time
 
-export { Intersection, Intersections }
+function intersectionOf(t: number, object: Sphere): Intersection {
+	return { t, object }
+}
+
+export { Intersection, Intersections, intersectionOf }

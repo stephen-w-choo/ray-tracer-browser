@@ -110,3 +110,4 @@ dist
 # Demo PPM files
 demo/random
 *.ppm
+ppm/
