@@ -12,6 +12,7 @@ const [topCornerY, topCornerX] = [-(CAMERA_FOV / 2), -(CAMERA_FOV / 2)]
 const CAMERA_DISTANCE = 10
 const SPHERE_COLOR: [number, number, number] = [1, 0.2, 1]
 const LIGHT_COLOR: [number, number, number] = [1, 1, 1]
+const SPHERE_AMBIENT_REFLECTIVITY = 0.15
 
 // Local vars
 const LIGHT_POSITION: [number, number, number] = [10, 10, -10]
@@ -29,6 +30,7 @@ export async function drawBallWithLightShader(
 	let sphere = new Sphere().translate(0, height, 0).scale(...scale)
 
 	sphere.material.color = new Color(...SPHERE_COLOR)
+	sphere.material.ambi = SPHERE_AMBIENT_REFLECTIVITY
 
 	let rayOrigin = createPoint(0, 0, -5)
 

@@ -30,6 +30,10 @@ function lighting(
 	let effectiveColor = material.color.times(light.intensity)
 	ambientLight = effectiveColor.times(material.ambi)
 
+	// // set specular and diffuse to black
+	// diffuseLight = new Color(0, 0, 0)
+	// specularLight = new Color(0, 0, 0)
+
 	// vector from light to the point
 	let lightV = light.pos.minus(point).normalize()
 

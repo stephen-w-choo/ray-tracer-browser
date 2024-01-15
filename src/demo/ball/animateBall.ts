@@ -33,7 +33,7 @@ function makeSpinningBallFrameData(divisions: number): FrameData[] {
     return res
 }
 
-function makeBallFrames(
+async function makeBallFrames(
     framesData: FrameData[], 
     outputImageDirectory: string,
     canvasSize: [number, number]
@@ -41,9 +41,8 @@ function makeBallFrames(
     // get the outputImageDirectoryName
     const outputImageDirectoryName = outputImageDirectory.split("/").pop()
 
-	framesData.forEach(async (frame, index) => {
-		// TODO - currently hardcoded as two digits
-		// Format index to be 2 digits
+	for (let index = 0; index < framesData.length; index++) {
+        const frame = framesData[index]
 		const formattedIndex = index.toString()
 
 		let canvas = await drawBallWithLightShader(
@@ -56,10 +55,14 @@ function makeBallFrames(
             canvas, 
             join(outputImageDirectory, `${outputImageDirectoryName}${formattedIndex}.ppm`)
         )
-	})
+        console.log(`Finished frame ${formattedIndex}`)
+	}
 }
 
-function main() {
+async function main() {
+    // start timer
+    const startTime = new Date().getTime()
+
     // make a directory for the output images
     try {
         fs.mkdirSync(outputDirectory)
@@ -71,7 +74,7 @@ function main() {
     const FrameData = makeSpinningBallFrameData(SPINNING_BALL_INTERVALS)
 
     // make the frames
-	makeBallFrames(
+	await makeBallFrames(
         FrameData,
         outputDirectory,
         [canvasSize, canvasSize]
@@ -83,6 +86,12 @@ function main() {
         FRAME_RATE,
         `${imageName}.mp4`
     )
+
+    // end timer
+    const endTime = new Date().getTime()
+
+    // print the time elapsed
+    console.log(`Time elapsed: ${(endTime - startTime) / 1000}s`)
 }
 
 main()
