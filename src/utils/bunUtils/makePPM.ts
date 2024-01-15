@@ -9,7 +9,7 @@ function toPPMColor(color: number): string {
 	return Math.round(color * PPM_MAX).toString()
 }
 
-async function makePPM(canvas: Canvas, outputFileName: string) {
+export async function makePPM(canvas: Canvas, outputFileName: string) {
 	const fileLines: string[] = []
 
 	fileLines.push(HEADER)
@@ -42,4 +42,3 @@ async function makePPM(canvas: Canvas, outputFileName: string) {
 	fs.writeFileSync(outputFileName, fileLines.join("\n"))
 }
 
-export { makePPM }
