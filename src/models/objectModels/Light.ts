@@ -26,12 +26,13 @@ function lighting(
 	let diffuseLight: Color
 	let specularLight: Color
 
-	// effective colour is a mix of material + light colour + material ambient reflectivity
+	// // effective colour is a mix of material + light colour + material ambient reflectivity
 	let effectiveColor = material.color.times(light.intensity)
-	ambientLight = effectiveColor.times(material.ambi)
+	// ambientLight = effectiveColor.times(material.ambi)
 
 	// // set specular and diffuse to black
-	// diffuseLight = new Color(0, 0, 0)
+	ambientLight = new Color(0, 0, 0)
+	diffuseLight = new Color(0, 0, 0)
 	// specularLight = new Color(0, 0, 0)
 
 	// vector from light to the point
@@ -40,12 +41,12 @@ function lighting(
 	// check if light source is shining on the point
 	let lightDotNormal = lightV.dot(normalV)
 	if (lightDotNormal < 0) {
-		diffuseLight = new Color(0, 0, 0)
+		// diffuseLight = new Color(0, 0, 0)
 		specularLight = new Color(0, 0, 0)
 	} else {
-		diffuseLight = effectiveColor
-			.times(material.diffuse)
-			.times(lightDotNormal)
+		// diffuseLight = effectiveColor
+		// 	.times(material.diffuse)
+		// 	.times(lightDotNormal)
 		let reflectV = lightV.negate().reflect(normalV)
 
 		let reflectDotEye = reflectV.dot(eyeV)

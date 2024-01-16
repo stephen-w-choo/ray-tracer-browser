@@ -13,7 +13,7 @@ const canvasSize: number = parseInt(args[1])
 // Change as needed
 const SPINNING_BALL_INTERVALS = 24
 const CURRENT_FRAMES = lightFrames
-const FRAME_RATE = 12
+const FRAME_RATE = 24
 
 function makeSpinningBallFrameData(divisions: number): FrameData[] {
     let res: FrameData[] = []
