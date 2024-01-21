@@ -1,10 +1,10 @@
-type Frame = {
+export type FrameData = {
 	camera: [number, number, number]
 	height: number
 	scale: [number, number, number]
 }
 
-const lightFrames: Frame[] = [
+export const lightFrames: FrameData[] = [
 	{ camera: [14.14, 10, 0.0], height: 1.0, scale: [1.0, 1.0, 1.0] },
 	{ camera: [11.44, 10, 8.31], height: 1.0, scale: [1.0, 1.0, 1.0] },
 	{ camera: [4.37, 10, 13.45], height: 1.0, scale: [1.0, 1.0, 1.0] },
@@ -17,7 +17,7 @@ const lightFrames: Frame[] = [
 	{ camera: [11.44, 10, -8.31], height: 1.0, scale: [1.0, 1.0, 1.0] },
 ]
 
-const bounceFrames: Frame[] = [
+export const bounceFrames: FrameData[] = [
 	{ camera: [-10, 10, -10], height: 1.0, scale: [1.0, 1.0, 1.0] },
 	{ camera: [-10, 10, -10], height: 0.75, scale: [1.08, 0.89, 1.08] },
 	{ camera: [-10, 10, -10], height: 0.61, scale: [1.13, 0.83, 1.13] },

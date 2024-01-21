@@ -1,40 +1,26 @@
-import { FfmpegCommand } from "fluent-ffmpeg"
 import { Canvas } from "../../models/environment/Canvas"
 import { Light, lighting } from "../../models/objectModels/Light"
 import { Ray } from "../../models/objectModels/Ray"
 import { Sphere } from "../../models/objectModels/Sphere"
 import { Color } from "../../models/objectPrimitives/Color"
 import { Tuple, createPoint } from "../../models/objectPrimitives/Tuple"
-import { makePPM } from "../../utils/bunUtils/makePPM"
 import { hit } from "../../utils/rayUtils"
-import { join } from "path"
 
-// represents the size of the camera field of view
+// Global vars
 const CAMERA_FOV = 10.0
-const CANVAS_SIZE: [number, number] = [400, 400]
 const [topCornerY, topCornerX] = [-(CAMERA_FOV / 2), -(CAMERA_FOV / 2)]
 const CAMERA_DISTANCE = 10
 const SPHERE_COLOR: [number, number, number] = [1, 0.2, 1]
 const LIGHT_COLOR: [number, number, number] = [1, 1, 1]
+const SPHERE_AMBIENT_REFLECTIVITY = 0.15
 
-function makeBallFrames(frameName: string) {
-	const folderName = join(__dirname, frameName)
+// Local vars
+const LIGHT_POSITION: [number, number, number] = [10, 10, -10]
+const HEIGHT = 1.0
+const SCALE: [number, number, number] = [1.0, 1.0, 1.0]
+const CANVAS_SIZE: [number, number] = [100, 100]
 
-	lightFrames.forEach(async (frame, index) => {
-		// Format index to be 2 digits
-		const formattedIndex = index.toString().padStart(2, '0')
-
-		let canvas = await drawBall(
-			frame.camera,
-			frame.height - 1.5,
-			frame.scale,
-			CANVAS_SIZE
-		)
-		makePPM(canvas, join(folderName, `ball-light${formattedIndex}.ppm`))
-	})
-}
-
-export async function drawBall(
+export async function drawBallWithLightShader(
 	lightPosition: [number, number, number],
 	height: number,
 	scale: [number, number, number],
@@ -44,6 +30,7 @@ export async function drawBall(
 	let sphere = new Sphere().translate(0, height, 0).scale(...scale)
 
 	sphere.material.color = new Color(...SPHERE_COLOR)
+	sphere.material.ambi = SPHERE_AMBIENT_REFLECTIVITY
 
 	let rayOrigin = createPoint(0, 0, -5)
 
@@ -95,11 +82,4 @@ function createRay(origin: Tuple, destination: Tuple): Ray {
 	return new Ray(origin, destination.minus(origin).normalize())
 }
 
-function makeAnimation(videoName: string, makeFrames: (frameName: string) => void) {
-	// Takes a function to make the frames
-
-	makeFrames(videoName + "frame")
-	const command = new FfmpegCommand()
-
-	command.addInput()
-}
+drawBallWithLightShader(LIGHT_POSITION, HEIGHT, SCALE, CANVAS_SIZE)
