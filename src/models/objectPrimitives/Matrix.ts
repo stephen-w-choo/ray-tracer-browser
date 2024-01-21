@@ -16,7 +16,7 @@ class Matrix {
 	m: number
 	n: number
 
-	constructor(nums: Float32Array[]) {
+	constructor(nums: number[][]) {
 		this.mat = nums
 		this.m = nums.length
 		this.n = nums[0].length

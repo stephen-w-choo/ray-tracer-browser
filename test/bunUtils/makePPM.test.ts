@@ -24,9 +24,9 @@ describe("Making a PPM file", () => {
 		const expectedPPMFile = `P3
 5 3
 255
-255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 
+0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 
+255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 `
 		// When
 		testCanvas.pixel.set(0, 0, c1)
