@@ -12,45 +12,52 @@ import {
 import { Tuple } from "./Tuple"
 
 class Matrix {
-	mat: number[][]
+	mat: Float32Array
 	m: number
 	n: number
 
-	constructor(nums: number[][]) {
+	constructor(nums: Float32Array, m = 4, n = 4) {
 		this.mat = nums
-		this.m = nums.length
-		this.n = nums[0].length
+		this.m = m
+		this.n = n
 	}
 
 	static identity(n: number | undefined = undefined): Matrix {
 		if (typeof n !== "number") {
 			return new Matrix(identity())
 		} else {
+			const identityMat = new Float32Array(n * n)
+			for (let i = 0; i < n; i++) {
+				identityMat[i * n + i] = 1
+			}
+
 			return new Matrix(
-				Array(n)
-					.fill(0)
-					.map((_, index) => {
-						const rowArray = Array(n).fill(0)
-						rowArray[index] = 1
-						return rowArray
-					})
+				identityMat,
+				n,
+				n
 			)
 		}
 	}
 
 	get(row: number, col: number): number {
 		if (row >= 0 && row < this.n && col >= 0 && col < this.m) {
-			return this.mat[row][col]
+			return this.mat[row * this.n + col]
+		} else {
+			throw new Error("out of bounds")
+		}
+	}
+
+	set(row: number, col: number, val: number) {
+		if (row >= 0 && row < this.n && col >= 0 && col < this.m) {
+			this.mat[row * this.n + col] = val
 		} else {
 			throw new Error("out of bounds")
 		}
 	}
 
 	equals(other: Matrix) {
-		for (let i = 0; i < this.m; i++) {
-			for (let j = 0; j < this.n; j++) {
-				if (!FloatEquals(this.mat[i][j], other.mat[i][j])) return false
-			}
+		for (let i = 0; i < this.mat.length; i++) {
+			if (!FloatEquals(this.mat[i], other.mat[i])) return false
 		}
 		return true
 	}
@@ -68,7 +75,7 @@ class Matrix {
 
 		for (let i = 0; i < this.m; i++) {
 			for (let j = 0; j < this.n; j++) {
-				result[i] += this.mat[i][j] * otherMat[j]
+				result[i] += this.get(i,j) * otherMat[j]
 			}
 		}
 
@@ -79,7 +86,7 @@ class Matrix {
 	times(other: Tuple): Tuple
 	times(other: Matrix | Tuple) {
 		if (other instanceof Matrix) {
-			return new Matrix(matrixMultiply(this.mat, other.mat))
+			return matrixMultiply(this, other)
 		}
 		if (other instanceof Tuple) {
 			return new Tuple(...this.timesTuple(other))
@@ -88,13 +95,11 @@ class Matrix {
 	}
 
 	transpose(): Matrix {
-		let result: number[][] = Array(this.n)
-			.fill(0)
-			.map(() => Array(this.m).fill(0))
+		let result: Float32Array = new Float32Array(this.m * this.n)
 
 		for (let i = 0; i < this.m; i++) {
 			for (let j = 0; j < this.n; j++) {
-				result[j][i] = this.mat[i][j]
+				result[i * this.n + j] = this.get(j, i)
 			}
 		}
 
@@ -106,16 +111,16 @@ class Matrix {
 
 		if (this.m === 2) {
 			return (
-				this.mat[0][0] * this.mat[1][1] -
-				this.mat[0][1] * this.mat[1][0]
+				this.mat[0] * this.mat[3] -
+				this.mat[1] * this.mat[2]
 			)
 		}
 
 		let result = 0
-
+		
 		for (let i = 0; i < this.m; i++) {
 			// will recurse back on determinant() through cofactor, up to base case
-			result += this.mat[0][i] * this.cofactor(0, i)
+			result += this.mat[0 + i] * this.cofactor(0, i)
 		}
 
 		return result
@@ -126,17 +131,15 @@ class Matrix {
 			throw new Error("Out of bounds")
 		}
 
-		let result: number[][] = Array(this.m - 1)
-			.fill(0)
-			.map(() => Array(this.n - 1).fill(null))
+		let result: Matrix = new Matrix(new Float32Array((this.m - 1) * (this.n - 1)), this.m - 1, this.n - 1)
 
 		for (let i = 0; i < this.m - 1; i++) {
 			for (let j = 0; j < this.n - 1; j++) {
-				result[i][j] = this.mat[i >= a ? i + 1 : i][j >= b ? j + 1 : j]
+				result.set(i, j, this.get(i >= a ? i + 1 : i, j >= b ? j + 1 : j))
 			}
 		}
 
-		return new Matrix(result)
+		return result
 	}
 
 	minor(i: number, j: number): number {
@@ -152,16 +155,14 @@ class Matrix {
 		if (this.determinant() === 0)
 			throw new Error("Matrix is not invertible")
 
-		let result: number[][] = Array(this.m)
-			.fill(0)
-			.map(() => Array(this.n).fill(null))
+		let result: Float32Array = new Float32Array(this.m * this.n)
 
 		for (let i = 0; i < this.m; i++) {
 			for (let j = 0; j < this.n; j++) {
 				// for each element, get the cofactor
 				let c = this.cofactor(i, j)
 				// transpose and divide by determinant
-				result[j][i] = c / this.determinant()
+				result[j * this.n + i] = c / this.determinant()
 			}
 		}
 
@@ -170,23 +171,23 @@ class Matrix {
 
 	// matrix transformation functions for fluent API
 	translate(x: number, y: number, z: number): Matrix {
-		return new Matrix(matrixMultiply(translationMatrix(x, y, z), this.mat))
+		return matrixMultiply(translationMatrix(x, y, z), this)
 	}
 
 	scale(x: number, y: number, z: number): Matrix {
-		return new Matrix(matrixMultiply(scalingMatrix(x, y, z), this.mat))
+		return matrixMultiply(scalingMatrix(x, y, z), this)
 	}
 
 	rotateX(radians: number): Matrix {
-		return new Matrix(matrixMultiply(rotationXMatrix(radians), this.mat))
+		return matrixMultiply(rotationXMatrix(radians), this)
 	}
 
 	rotateY(radians: number): Matrix {
-		return new Matrix(matrixMultiply(rotationYMatrix(radians), this.mat))
+		return matrixMultiply(rotationYMatrix(radians), this)
 	}
 
 	rotateZ(radians: number): Matrix {
-		return new Matrix(matrixMultiply(rotationZMatrix(radians), this.mat))
+		return matrixMultiply(rotationZMatrix(radians), this)
 	}
 
 	shearing(
@@ -197,9 +198,7 @@ class Matrix {
 		zx: number,
 		zy: number
 	): Matrix {
-		return new Matrix(
-			matrixMultiply(shear(xy, xz, yx, yz, zx, zy), this.mat)
-		)
+		return matrixMultiply(shear(xy, xz, yx, yz, zx, zy), this)
 	}
 }
 
