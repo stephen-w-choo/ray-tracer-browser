@@ -17,9 +17,9 @@ function importFormatter(directoryPath: string) {
                 // recurse through the folders
 				importFormatter(entryPath)
 			} else if (entry.isFile() && entry.name.endsWith(".js")) {
+				let content: string = readFileSync(entryPath, "utf8")
                 // this regex was made by ChatGPT
                 // I genuinely have no idea how it works
-				let content: string = readFileSync(entryPath, "utf8")
 				const modifiedContent: string = content.replace(
 					/from\s+['"]([^'"]+)['"]/g,
 					(match: string, p1: string) => {
