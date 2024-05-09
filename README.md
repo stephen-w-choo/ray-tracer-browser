@@ -7,6 +7,7 @@ A personal project to practice linear algebra, test-driven development and optim
 - [x] 2D environment and canvas implemented
 - [x] Matrix multiplication and associated operations
 - [x] Optimisation of matrix multiplication - TBD. I can probably still squeeze quite a bit more performance out of TypeScript by using Float32Arrays, rather than the loosey-goosey Arrays that are the default, but I WILL need to eventually target WASM to get anything approaching respectable performance
+
       Updated - I changed to Float32Arrays, and it instantly became 5-6 times faster. It's still... not fast, but I'm still not prepared to bite the bullet and start learning how to code in C++/Rust for WASM just yet.
 - [x] Shaders implemented using the Phong reflection algorithm
 
